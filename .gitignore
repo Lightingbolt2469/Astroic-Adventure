@@ -1,26 +1,75 @@
-### AL ###
-#Template for AL projects for Dynamics 365 Business Central
-#launch.json folder
-.vscode/
-#Cache folder
-.alcache/
-#Symbols folder
-.alpackages/
-#Snapshots folder
-.snapshots/
-#Testing Output folder
-.output/
-#Extension App-file
-*.app
-#Rapid Application Development File
-rad.json
-#Translation Base-file
-*.g.xlf
-#License-files
-*.bclicense
-*.flf
-#Test results file
-TestResults.xml
-# Output Files
-main.exe
+### =========================================================================
+
+### AlpineBytes Universal .gitignore Template
+
+### Core files to exclude from your open-source projects
+
+### =========================================================================
+
+### --- System and OS Files ---
+
 desktop.ini
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+Log.txt
+*.log 
+
+### --- Node.js / JavaScript Dependencies ---
+
+node_modules/
+/dist/
+/build/
+.npm/ 
+
+### --- Python Virtual Environments & Cache ---
+
+venv/
+.venv/
+env/
+.env_space/
+**pycache**/
+*.pyc
+*.pyo
+*.pyd
+.Python
+htmlcov/
+.tox/
+.coverage
+.cache/ 
+
+### --- IDEs and Text Editors ---
+
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp 
+
+### --- Security and Environment Secrets ---
+
+### NEVER commit your API keys, tokens, or passwords!
+
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+*.key
+certs/ 
+
+### --- Executables and Binaries ---
+
+### Prevents compiled code and application builds from entering the repo
+
+main.exe
+*.exe
+*.dll
+*.so
+*.dylib
