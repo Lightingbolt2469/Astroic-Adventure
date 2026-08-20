@@ -42,17 +42,13 @@ int main()
     int AsteroidHeight = 176;
     int AsteroidX[5] = {GetRandomValue(0, GetScreenWidth() - AsteroidWidth), GetRandomValue(0, GetScreenWidth() - AsteroidWidth), GetRandomValue(0, GetScreenWidth() - AsteroidWidth), GetRandomValue(0, GetScreenWidth() - AsteroidWidth), GetRandomValue(0, GetScreenWidth() - AsteroidWidth)};
     int AsteroidY[5] = {0, 0, 0, 0, 0};
-    int AsteroidSpeed = GetRandomValue(2, 5);
-    int Asteroid2Speed = GetRandomValue(2, 5);
-    int Asteroid3Speed = GetRandomValue(2, 5);
-    int Asteroid4Speed = GetRandomValue(2, 5);
-    int Asteroid5Speed = GetRandomValue(2, 5);
+    int AsteroidSpeed[5] = {GetRandomValue(2, 5), GetRandomValue(2, 5), GetRandomValue(2, 5), GetRandomValue(2, 5), GetRandomValue(2, 5)};
     bool DrawAsteroid = true;
     int GrenadeWidth = 30;
     int GrenadeHeight = 30;
     int GrenadeX[3] = {PlayerX + (GrenadeWidth + PlayerSpeed), PlayerX + (GrenadeWidth + PlayerSpeed), PlayerX + (GrenadeWidth + PlayerSpeed)};
     int GrenadeY[3] = {PlayerY + (PlayerHeight / 2), PlayerY + (PlayerHeight / 2), PlayerY + (PlayerHeight / 2)};
-    int OldGrenadeX;
+    int OldGrenadeX[3];
     int GrenadeSpeed = 15;
     bool GrenadeActive = false;
     bool MeasuringOldX = true;
@@ -90,9 +86,11 @@ int main()
             BeginDrawing();
             ClearBackground(BLACK);
             DrawTexture(Background, 0, 0, WHITE);
-            DrawTexture(GrenadeTexture, OldGrenadeX, GrenadeY[0], WHITE);
+            DrawTexture(GrenadeTexture, OldGrenadeX[0], GrenadeY[0], WHITE);
             DrawTexture(PlayerSprite, PlayerX, PlayerY, WHITE);
             GrenadeX[0] = PlayerX + (GrenadeWidth + PlayerSpeed);
+            GrenadeX[1] = PlayerX + (GrenadeWidth + PlayerSpeed);
+            GrenadeX[2] = PlayerX + (GrenadeWidth + PlayerSpeed);
             if (DrawAsteroid == true)
             {
                 DrawTexture(AsteroidSprite, AsteroidX[0], AsteroidY[0], WHITE);
@@ -102,11 +100,11 @@ int main()
                 DrawTexture(AsteroidSprite, AsteroidX[4], AsteroidY[4], WHITE);
             }
             // Asteroid Movement
-            AsteroidY[0] += AsteroidSpeed;
-            AsteroidY[1] += Asteroid2Speed;
-            AsteroidY[2] += Asteroid3Speed;
-            AsteroidY[3] += Asteroid4Speed;
-            AsteroidY[4] += Asteroid5Speed;
+            AsteroidY[0] += AsteroidSpeed[0];
+            AsteroidY[1] += AsteroidSpeed[1];
+            AsteroidY[2] += AsteroidSpeed[2];
+            AsteroidY[3] += AsteroidSpeed[3];
+            AsteroidY[4] += AsteroidSpeed[4];
             if (PlayerX <= 0)
             {
                 PlayerX = 0;
@@ -121,11 +119,11 @@ int main()
                 GrenadeActive = true;
                 PlaySound(GrenadeShooting);
             }
-            Collide_Grenade_Asteroid(AsteroidX[0], GrenadeX[0], AsteroidY[0], GrenadeY[0], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed, GrenadeSpeed, GrenadeActive, ExplodeSound, Score);
-            Collide_Grenade_Asteroid(AsteroidX[1], GrenadeX[0], AsteroidY[1], GrenadeY[0], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, Asteroid2Speed, GrenadeSpeed, GrenadeActive, ExplodeSound, Score);
-            Collide_Grenade_Asteroid(AsteroidX[2], GrenadeX[0], AsteroidY[2], GrenadeY[0], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, Asteroid3Speed, GrenadeSpeed, GrenadeActive, ExplodeSound, Score);
-            Collide_Grenade_Asteroid(AsteroidX[3], GrenadeX[0], AsteroidY[3], GrenadeY[0], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, Asteroid4Speed, GrenadeSpeed, GrenadeActive, ExplodeSound, Score);
-            Collide_Grenade_Asteroid(AsteroidX[4], GrenadeX[0], AsteroidY[4], GrenadeY[0], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, Asteroid5Speed, GrenadeSpeed, GrenadeActive, ExplodeSound, Score);
+            Collide_Grenade_Asteroid(AsteroidX[0], GrenadeX[0], AsteroidY[0], GrenadeY[0], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[0], GrenadeSpeed, GrenadeActive, ExplodeSound, Score);
+            Collide_Grenade_Asteroid(AsteroidX[1], GrenadeX[0], AsteroidY[1], GrenadeY[0], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[1], GrenadeSpeed, GrenadeActive, ExplodeSound, Score);
+            Collide_Grenade_Asteroid(AsteroidX[2], GrenadeX[0], AsteroidY[2], GrenadeY[0], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[2], GrenadeSpeed, GrenadeActive, ExplodeSound, Score);
+            Collide_Grenade_Asteroid(AsteroidX[3], GrenadeX[0], AsteroidY[3], GrenadeY[0], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[3], GrenadeSpeed, GrenadeActive, ExplodeSound, Score);
+            Collide_Grenade_Asteroid(AsteroidX[4], GrenadeX[0], AsteroidY[4], GrenadeY[0], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[4], GrenadeSpeed, GrenadeActive, ExplodeSound, Score);
             // Grenade Movement
             if (GrenadeActive)
             {
@@ -141,7 +139,7 @@ int main()
             }
             if (MeasuringOldX)
             {
-                OldGrenadeX = GrenadeX[0];
+                OldGrenadeX[0] = GrenadeX[0];
             }
             if (!GrenadeActive)
             {
@@ -150,7 +148,7 @@ int main()
             }
             if (MeasuringOldX)
             {
-                OldGrenadeX = GrenadeX[0];
+                OldGrenadeX[0] = GrenadeX[0];
             }
             // This is where the asteroids get reset
             if (AsteroidY[0] + AsteroidHeight >= GetScreenHeight())
