@@ -51,7 +51,12 @@ int main()
     int OldGrenadeX[3];
     int GrenadeSpeed = 15;
     bool GrenadeActive = false;
+    bool GrenadeActive1 = false;
+    bool GrenadeActive2 = false;
     bool MeasuringOldX = true;
+    bool MeasuringOldX1 = true;
+    bool MeasuringOldX2 = true;
+    bool GrenadeCycle = 1;
     Texture2D PlayerSprite = LoadTexture("Sprites/Player.png");
     Texture2D GrenadeTexture = LoadTexture("Sprites/Grenade.png");
     Texture2D AsteroidSprite = LoadTexture("Sprites/Asteroid.png");
@@ -87,6 +92,8 @@ int main()
             ClearBackground(BLACK);
             DrawTexture(Background, 0, 0, WHITE);
             DrawTexture(GrenadeTexture, OldGrenadeX[0], GrenadeY[0], WHITE);
+            DrawTexture(GrenadeTexture, OldGrenadeX[1], GrenadeY[1], WHITE);
+            DrawTexture(GrenadeTexture, OldGrenadeX[2], GrenadeY[2], WHITE);
             DrawTexture(PlayerSprite, PlayerX, PlayerY, WHITE);
             GrenadeX[0] = PlayerX + (GrenadeWidth + PlayerSpeed);
             GrenadeX[1] = PlayerX + (GrenadeWidth + PlayerSpeed);
@@ -116,7 +123,21 @@ int main()
             // This trigers the grenade
             if (IsKeyDown(KEY_SPACE))
             {
-                GrenadeActive = true;
+                if (IsKeyPressed(KEY_SPACE))
+                {
+                    if (!GrenadeActive)
+                    {
+                        GrenadeActive = true;
+                    }
+                    else if (!GrenadeActive1)
+                    {
+                        GrenadeActive1 = true;
+                    }
+                    else if (!GrenadeActive2)
+                    {
+                        GrenadeActive2 = true;
+                    }
+                }
                 PlaySound(GrenadeShooting);
             }
             Collide_Grenade_Asteroid(AsteroidX[0], GrenadeX[0], AsteroidY[0], GrenadeY[0], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[0], GrenadeSpeed, GrenadeActive, ExplodeSound, Score);
@@ -124,6 +145,16 @@ int main()
             Collide_Grenade_Asteroid(AsteroidX[2], GrenadeX[0], AsteroidY[2], GrenadeY[0], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[2], GrenadeSpeed, GrenadeActive, ExplodeSound, Score);
             Collide_Grenade_Asteroid(AsteroidX[3], GrenadeX[0], AsteroidY[3], GrenadeY[0], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[3], GrenadeSpeed, GrenadeActive, ExplodeSound, Score);
             Collide_Grenade_Asteroid(AsteroidX[4], GrenadeX[0], AsteroidY[4], GrenadeY[0], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[4], GrenadeSpeed, GrenadeActive, ExplodeSound, Score);
+            Collide_Grenade_Asteroid(AsteroidX[0], GrenadeX[1], AsteroidY[0], GrenadeY[1], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[0], GrenadeSpeed, GrenadeActive1, ExplodeSound, Score);
+            Collide_Grenade_Asteroid(AsteroidX[1], GrenadeX[1], AsteroidY[1], GrenadeY[1], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[1], GrenadeSpeed, GrenadeActive1, ExplodeSound, Score);
+            Collide_Grenade_Asteroid(AsteroidX[2], GrenadeX[1], AsteroidY[2], GrenadeY[1], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[2], GrenadeSpeed, GrenadeActive1, ExplodeSound, Score);
+            Collide_Grenade_Asteroid(AsteroidX[3], GrenadeX[1], AsteroidY[3], GrenadeY[1], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[3], GrenadeSpeed, GrenadeActive1, ExplodeSound, Score);
+            Collide_Grenade_Asteroid(AsteroidX[4], GrenadeX[1], AsteroidY[4], GrenadeY[1], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[4], GrenadeSpeed, GrenadeActive1, ExplodeSound, Score);
+            Collide_Grenade_Asteroid(AsteroidX[0], GrenadeX[2], AsteroidY[0], GrenadeY[2], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[0], GrenadeSpeed, GrenadeActive2, ExplodeSound, Score);
+            Collide_Grenade_Asteroid(AsteroidX[1], GrenadeX[2], AsteroidY[1], GrenadeY[2], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[1], GrenadeSpeed, GrenadeActive2, ExplodeSound, Score);
+            Collide_Grenade_Asteroid(AsteroidX[2], GrenadeX[2], AsteroidY[2], GrenadeY[2], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[2], GrenadeSpeed, GrenadeActive2, ExplodeSound, Score);
+            Collide_Grenade_Asteroid(AsteroidX[3], GrenadeX[2], AsteroidY[3], GrenadeY[2], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[3], GrenadeSpeed, GrenadeActive2, ExplodeSound, Score);
+            Collide_Grenade_Asteroid(AsteroidX[4], GrenadeX[2], AsteroidY[4], GrenadeY[2], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[4], GrenadeSpeed, GrenadeActive2, ExplodeSound, Score);
             // Grenade Movement
             if (GrenadeActive)
             {
@@ -149,6 +180,58 @@ int main()
             if (MeasuringOldX)
             {
                 OldGrenadeX[0] = GrenadeX[0];
+            }
+            //############################################################
+            if (GrenadeActive1)
+            {
+                if (GrenadeY[1] > 0)
+                {
+                    GrenadeY[1] -= GrenadeSpeed;
+                    MeasuringOldX1 = false;
+                }
+                else
+                {
+                    GrenadeActive1 = false;
+                }
+            }
+            if (MeasuringOldX1)
+            {
+                OldGrenadeX[1] = GrenadeX[1];
+            }
+            if (!GrenadeActive1)
+            {
+                GrenadeY[1] = PlayerY + (PlayerHeight / 2);
+                MeasuringOldX1 = true;
+            }
+            if (MeasuringOldX1)
+            {
+                OldGrenadeX[1] = GrenadeX[1];
+            }
+            //#################################################
+            if (GrenadeActive2)
+            {
+                if (GrenadeY[2] > 0)
+                {
+                    GrenadeY[2] -= GrenadeSpeed;
+                    MeasuringOldX2 = false;
+                }
+                else
+                {
+                    GrenadeActive2 = false;
+                }
+            }
+            if (MeasuringOldX2)
+            {
+                OldGrenadeX[2] = GrenadeX[2];
+            }
+            if (!GrenadeActive2)
+            {
+                GrenadeY[2] = PlayerY + (PlayerHeight / 2);
+                MeasuringOldX2 = true;
+            }
+            if (MeasuringOldX2)
+            {
+                OldGrenadeX[2] = GrenadeX[2];
             }
             // This is where the asteroids get reset
             if (AsteroidY[0] + AsteroidHeight >= GetScreenHeight())
