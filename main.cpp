@@ -56,7 +56,6 @@ int main()
     bool MeasuringOldX = true;
     bool MeasuringOldX1 = true;
     bool MeasuringOldX2 = true;
-    bool GrenadeCycle = 1;
     Texture2D PlayerSprite = LoadTexture("Sprites/Player.png");
     Texture2D GrenadeTexture = LoadTexture("Sprites/Grenade.png");
     Texture2D AsteroidSprite = LoadTexture("Sprites/Asteroid.png");
