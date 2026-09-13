@@ -49,7 +49,7 @@ int main()
     int GrenadeX[3] = {PlayerX + (GrenadeWidth + PlayerSpeed), PlayerX + (GrenadeWidth + PlayerSpeed), PlayerX + (GrenadeWidth + PlayerSpeed)};
     int GrenadeY[3] = {PlayerY + (PlayerHeight / 2), PlayerY + (PlayerHeight / 2), PlayerY + (PlayerHeight / 2)};
     int OldGrenadeX[3];
-    int GrenadeSpeed = 15;
+    int GrenadeSpeed = 12;
     bool GrenadeActive = false;
     bool GrenadeActive1 = false;
     bool GrenadeActive2 = false;
