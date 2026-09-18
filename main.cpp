@@ -5,6 +5,7 @@ void Collide_Grenade_Asteroid(int &a_x, int &b_x, int &a_y, int &b_y, int a_widt
 {
     if (a_x < b_x + b_width && b_x < a_x + a_width && a_y < b_y + b_height && b_y < a_y + a_height)
     {
+        
         a_y = 0;
         a_speed = GetRandomValue(2, 5);
         a_x = GetRandomValue(0, GetScreenWidth() - a_width);
