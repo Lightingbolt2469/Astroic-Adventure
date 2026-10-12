@@ -59,7 +59,7 @@ int main()
     Texture2D PlayerSprite = LoadTexture("Sprites/Player.png");
     Texture2D GrenadeTexture = LoadTexture("Sprites/Grenade.png");
     Texture2D AsteroidSprite = LoadTexture("Sprites/Asteroid.png");
-    Texture2D Background = LoadTexture("Sprites/Bg.jpg");
+    Texture2D Background = LoadTexture("Sprites/Background.png");
     Sound ExplodeSound = LoadSound("Sounds/Explosion.wav");
     Sound GrenadeShooting = LoadSound("Sounds/GrenadeShooting.wav");
     Music BackgroundMusic = LoadMusicStream("Sounds/Background Music.ogg");
