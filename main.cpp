@@ -63,6 +63,10 @@ int main()
     Sound ExplodeSound = LoadSound("Sounds/Explosion.wav");
     Sound GrenadeShooting = LoadSound("Sounds/GrenadeShooting.wav");
     Music BackgroundMusic = LoadMusicStream("Sounds/Background Music.ogg");
+    Font HackerFont = LoadFont("Fonts/Audex.ttf");
+    Vector2 ScorePos = { 75.0f, 50.0f };
+    Vector2 LivesPos = { 75.0f, 110.0f };
+    float Spacing = 2.0f;
     int Score = 1;
     int Lives = 5;
     // Game loop
@@ -284,8 +288,8 @@ int main()
             Player_Hit_Asteroid(AsteroidX[3], PlayerX, AsteroidY[3], PlayerY, AsteroidWidth, PlayerWidth, AsteroidHeight, PlayerHeight, DrawAsteroid, Lives);
             Player_Hit_Asteroid(AsteroidX[4], PlayerX, AsteroidY[4], PlayerY, AsteroidWidth, PlayerWidth, AsteroidHeight, PlayerHeight, DrawAsteroid, Lives);
             // Draws the score
-            DrawText(TextFormat("Score : %i", Score), 75, 50, 60, WHITE);
-            DrawText(TextFormat("Lives : %i", Lives), 75, 110, 60, WHITE);
+            DrawTextEx(HackerFont, TextFormat("Score : %i", Score), ScorePos, 60, Spacing, WHITE);
+            DrawTextEx(HackerFont, TextFormat("Lives : %i", Lives), LivesPos, 60, Spacing, WHITE);
             if (Score == 0 || Lives == 0)
             {
                 GameActive = 0;
