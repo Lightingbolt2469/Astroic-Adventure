@@ -288,8 +288,8 @@ int main()
             Player_Hit_Asteroid(AsteroidX[3], PlayerX, AsteroidY[3], PlayerY, AsteroidWidth, PlayerWidth, AsteroidHeight, PlayerHeight, DrawAsteroid, Lives);
             Player_Hit_Asteroid(AsteroidX[4], PlayerX, AsteroidY[4], PlayerY, AsteroidWidth, PlayerWidth, AsteroidHeight, PlayerHeight, DrawAsteroid, Lives);
             // Draws the score
-            DrawTextEx(HackerFont, TextFormat("Score : %i", Score), ScorePos, 60, Spacing, WHITE);
-            DrawTextEx(HackerFont, TextFormat("Lives : %i", Lives), LivesPos, 60, Spacing, WHITE);
+            DrawTextEx(HackerFont, TextFormat("Score : %i", Score), ScorePos, 60, Spacing, BLUE);
+            DrawTextEx(HackerFont, TextFormat("Lives : %i", Lives), LivesPos, 60, Spacing, BLUE);
             if (Score == 0 || Lives == 0)
             {
                 GameActive = 0;
