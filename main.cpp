@@ -321,6 +321,7 @@ int main()
     UnloadTexture(PlayerSprite);
     UnloadTexture(GrenadeTexture);
     UnloadTexture(AsteroidSprite);
+    UnloadFont(HackerFont);
     UnloadTexture(Background);
     UnloadSound(ExplodeSound);
     UnloadSound(GrenadeShooting);
