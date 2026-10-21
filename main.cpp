@@ -30,9 +30,6 @@ void Heart_Hit_Player(int &a_x, int &b_x, int &a_y, int &b_y, int a_width, int b
         Lives += 1;
         a_x = 0;
         a_active = false;
-        a_y = 0;
-        a_x = GetRandomValue(0, GetScreenWidth() - a_width);
-        a_speed = GetRandomValue(2, 4);
     }
 }
 
@@ -144,6 +141,7 @@ int main()
                 HeartY = 0;
                 HeartX = GetRandomValue(0, GetScreenWidth() - HeartWidth);
                 HeartSpeed = GetRandomValue(2, 4);
+                WhenDrawHeart = GetRandomValue(2, 96);
             }
             // Asteroid Movement
             AsteroidY[0] += AsteroidSpeed[0];
