@@ -127,17 +127,17 @@ int main()
                 DrawTexture(AsteroidSprite, AsteroidX[3], AsteroidY[3], WHITE);
                 DrawTexture(AsteroidSprite, AsteroidX[4], AsteroidY[4], WHITE);
             }
-            if (WhenDrawHeart = Score) {
+            if (WhenDrawHeart == Score) {
                 DrawHeart = true;
             }
-            if (DrawHeart = true) {
+            if (DrawHeart == true) {
                 DrawTexture(HeartSprite, HeartX, HeartY, WHITE);
                 if (HeartY >= 0) {
                     HeartY += HeartSpeed;
                 }
                 DrawHeart = false;
             }
-            if (DrawHeart = false) {
+            if (DrawHeart == false) {
                 HeartY = 0;
                 HeartX = GetRandomValue(0, GetScreenWidth() - HeartWidth);
                 HeartSpeed = GetRandomValue(2, 4);
