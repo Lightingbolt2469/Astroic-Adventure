@@ -72,8 +72,8 @@ int main()
     int HeartX = GetRandomValue(0, GetScreenWidth() - HeartWidth);
     int HeartY = 0;
     int HeartSpeed = GetRandomValue(2, 4);
-    bool DrawHeart = true;
-    int WhenDrawHeart = GetRandomValue(10, 90);
+    bool DrawHeart = false;
+    int WhenDrawHeart = GetRandomValue(2, 95);
     Texture2D PlayerSprite = LoadTexture("Sprites/Player.png");
     Texture2D GrenadeTexture = LoadTexture("Sprites/Grenade.png");
     Texture2D AsteroidSprite = LoadTexture("Sprites/Asteroid.png");
@@ -135,7 +135,10 @@ int main()
                 if (HeartY >= 0) {
                     HeartY += HeartSpeed;
                 }
-                DrawHeart = false;
+                if (HeartY >= GetScreenHeight()) {
+                    DrawHeart = false;
+                    HeartY = 0;
+                }
             }
             if (DrawHeart == false) {
                 HeartY = 0;
