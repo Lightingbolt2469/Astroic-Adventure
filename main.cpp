@@ -25,6 +25,12 @@ void Player_Hit_Asteroid(int &a_x, int &b_x, int &a_y, int &b_y, int a_width, in
     }
 }
 
+void Heart_Hit_Player(int &a_x, int &b_x, int &a_y, int &b_y, int a_width, int b_width, int a_height, int b_height, int a_active, int &Lives) {
+    if (a_x < b_x + b_width && b_x < a_x + a_width && a_y < b_y + b_height && b_y < a_y + a_height) {
+        Lives += 1;
+    }
+}
+
 int main()
 {
     // Starts the game window and sets the fps of the game
@@ -56,9 +62,17 @@ int main()
     bool MeasuringOldX = true;
     bool MeasuringOldX1 = true;
     bool MeasuringOldX2 = true;
+    int HeartWidth = 150;
+    int HeartHeight = 150;
+    int HeartX = GetRandomValue(0, GetScreenWidth() - HeartWidth);
+    int HeartY = 0;
+    int HeartSpeed = GetRandomValue(1, 4);
+    bool DrawHeart = true;
+    int WhenDrawHeart = GetRandomValue(1, 100);
     Texture2D PlayerSprite = LoadTexture("Sprites/Player.png");
     Texture2D GrenadeTexture = LoadTexture("Sprites/Grenade.png");
     Texture2D AsteroidSprite = LoadTexture("Sprites/Asteroid.png");
+    Texture2D HeartSprite = LoadTexture("Sprites/Heart.png");
     Texture2D Background = LoadTexture("Sprites/Background.png");
     Sound ExplodeSound = LoadSound("Sounds/Explosion.wav");
     Sound GrenadeShooting = LoadSound("Sounds/GrenadeShooting.wav");
@@ -72,8 +86,6 @@ int main()
         if (GameActive == 1)
         {
             UpdateMusicStream(BackgroundMusic);
-
-
             // Player Movement
             if (IsKeyDown(KEY_RIGHT))
             {
@@ -109,6 +121,12 @@ int main()
                 DrawTexture(AsteroidSprite, AsteroidX[2], AsteroidY[2], WHITE);
                 DrawTexture(AsteroidSprite, AsteroidX[3], AsteroidY[3], WHITE);
                 DrawTexture(AsteroidSprite, AsteroidX[4], AsteroidY[4], WHITE);
+            }
+            if (WhenDrawHeart = Score) {
+                DrawHeart = true;
+            }
+            if (DrawHeart = true) {
+                DrawTexture(HeartSprite, HeartX, HeartY, WHITE);
             }
             // Asteroid Movement
             AsteroidY[0] += AsteroidSpeed[0];
