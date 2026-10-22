@@ -73,7 +73,9 @@ int main()
     int HeartY = 0;
     int HeartSpeed = GetRandomValue(2, 4);
     bool DrawHeart = false;
-    int WhenDrawHeart = GetRandomValue(2, 95);
+    int Score = 1;
+    int Lives = 5;
+    int WhenDrawHeart = Score + GetRandomValue(5, 20);
     Texture2D PlayerSprite = LoadTexture("Sprites/Player.png");
     Texture2D GrenadeTexture = LoadTexture("Sprites/Grenade.png");
     Texture2D AsteroidSprite = LoadTexture("Sprites/Asteroid.png");
@@ -82,8 +84,6 @@ int main()
     Sound ExplodeSound = LoadSound("Sounds/Explosion.wav");
     Sound GrenadeShooting = LoadSound("Sounds/GrenadeShooting.wav");
     Music BackgroundMusic = LoadMusicStream("Sounds/Background Music.ogg");
-    int Score = 1;
-    int Lives = 5;
     // Game loop
     PlayMusicStream(BackgroundMusic);
     while (!WindowShouldClose())
@@ -135,16 +135,12 @@ int main()
                 if (HeartY >= 0) {
                     HeartY += HeartSpeed;
                 }
-                if (HeartY >= GetScreenHeight()) {
+                if (HeartY == GetScreenHeight()) {
                     DrawHeart = false;
                     HeartY = 0;
+                    HeartX = GetRandomValue(0, GetScreenWidth() - HeartWidth);
+                    WhenDrawHeart = Score + GetRandomValue(2, 96);
                 }
-            }
-            if (DrawHeart == false) {
-                HeartY = 0;
-                HeartX = GetRandomValue(0, GetScreenWidth() - HeartWidth);
-                HeartSpeed = GetRandomValue(2, 4);
-                WhenDrawHeart = GetRandomValue(2, 96);
             }
             // Asteroid Movement
             AsteroidY[0] += AsteroidSpeed[0];
