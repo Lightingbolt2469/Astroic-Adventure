@@ -1,7 +1,7 @@
 #include "raylib.h"
 
-// Checks if the Asteroid touches the Grenade
-void Collide_Grenade_Asteroid(int &a_x, int &b_x, int &a_y, int &b_y, int a_width, int b_width, int a_height, int b_height, int &a_speed, int &b_speed, bool &b_active, Sound ExplodeSound, int &Score)
+// Checks if the Asteroid touches the EnergyBlast
+void Collide_EnergyBlast_Asteroid(int &a_x, int &b_x, int &a_y, int &b_y, int a_width, int b_width, int a_height, int b_height, int &a_speed, int &b_speed, bool &b_active, Sound ExplodeSound, int &Score)
 {
     if (a_x < b_x + b_width && b_x < a_x + a_width && a_y < b_y + b_height && b_y < a_y + a_height)
     {
@@ -25,8 +25,10 @@ void Player_Hit_Asteroid(int &a_x, int &b_x, int &a_y, int &b_y, int a_width, in
     }
 }
 
-void Heart_Hit_Player(int &a_x, int &b_x, int &a_y, int &b_y, int a_width, int b_width, int a_height, int b_height,int &a_speed, bool &a_active, int &a_wd, int &Lives, int &Score) {
-    if (a_x < b_x + b_width && b_x < a_x + a_width && a_y < b_y + b_height && b_y < a_y + a_height) {
+void Heart_Hit_Player(int &a_x, int &b_x, int &a_y, int &b_y, int a_width, int b_width, int a_height, int b_height, int &a_speed, bool &a_active, int &a_wd, int &Lives, int &Score)
+{
+    if (a_x < b_x + b_width && b_x < a_x + a_width && a_y < b_y + b_height && b_y < a_y + a_height)
+    {
         Lives += 1;
         a_y = 0;
         a_x = GetRandomValue(0, GetScreenWidth() - a_width);
@@ -55,15 +57,15 @@ int main()
     int AsteroidY[5] = {0, 0, 0, 0, 0};
     int AsteroidSpeed[5] = {GetRandomValue(2, 5), GetRandomValue(2, 5), GetRandomValue(2, 5), GetRandomValue(2, 5), GetRandomValue(2, 5)};
     bool DrawAsteroid = true;
-    int GrenadeWidth = 30;
-    int GrenadeHeight = 30;
-    int GrenadeX[3] = {PlayerX + (GrenadeWidth + PlayerSpeed), PlayerX + (GrenadeWidth + PlayerSpeed), PlayerX + (GrenadeWidth + PlayerSpeed)};
-    int GrenadeY[3] = {PlayerY + (PlayerHeight / 2), PlayerY + (PlayerHeight / 2), PlayerY + (PlayerHeight / 2)};
-    int OldGrenadeX[3];
-    int GrenadeSpeed = 12;
-    bool GrenadeActive = false;
-    bool GrenadeActive1 = false;
-    bool GrenadeActive2 = false;
+    int EnergyBlastWidth = 30;
+    int EnergyBlastHeight = 30;
+    int EnergyBlastX[3] = {PlayerX + (EnergyBlastWidth + PlayerSpeed), PlayerX + (EnergyBlastWidth + PlayerSpeed), PlayerX + (EnergyBlastWidth + PlayerSpeed)};
+    int EnergyBlastY[3] = {PlayerY + (PlayerHeight / 2), PlayerY + (PlayerHeight / 2), PlayerY + (PlayerHeight / 2)};
+    int OldEnergyBlastX[3];
+    int EnergyBlastSpeed = 12;
+    bool EnergyBlastActive = false;
+    bool EnergyBlastActive1 = false;
+    bool EnergyBlastActive2 = false;
     bool MeasuringOldX = true;
     bool MeasuringOldX1 = true;
     bool MeasuringOldX2 = true;
@@ -77,12 +79,12 @@ int main()
     int Lives = 5;
     int WhenDrawHeart = Score + GetRandomValue(5, 20);
     Texture2D PlayerSprite = LoadTexture("Sprites/Player.png");
-    Texture2D GrenadeTexture = LoadTexture("Sprites/Grenade.png");
+    Texture2D EnergyBlastTexture = LoadTexture("Sprites/EnergyBlast.png");
     Texture2D AsteroidSprite = LoadTexture("Sprites/Asteroid.png");
     Texture2D HeartSprite = LoadTexture("Sprites/Heart.png");
     Texture2D Background = LoadTexture("Sprites/Background.png");
     Sound ExplodeSound = LoadSound("Sounds/Explosion.wav");
-    Sound GrenadeShooting = LoadSound("Sounds/GrenadeShooting.wav");
+    Sound EnergyBlastShooting = LoadSound("Sounds/EnergyBlastShooting.wav");
     Music BackgroundMusic = LoadMusicStream("Sounds/Background Music.ogg");
     // Game loop
     PlayMusicStream(BackgroundMusic);
@@ -112,13 +114,13 @@ int main()
             BeginDrawing();
             ClearBackground(BLACK);
             DrawTexture(Background, 0, 0, WHITE);
-            DrawTexture(GrenadeTexture, OldGrenadeX[0], GrenadeY[0], WHITE);
-            DrawTexture(GrenadeTexture, OldGrenadeX[1], GrenadeY[1], WHITE);
-            DrawTexture(GrenadeTexture, OldGrenadeX[2], GrenadeY[2], WHITE);
+            DrawTexture(EnergyBlastTexture, OldEnergyBlastX[0], EnergyBlastY[0], WHITE);
+            DrawTexture(EnergyBlastTexture, OldEnergyBlastX[1], EnergyBlastY[1], WHITE);
+            DrawTexture(EnergyBlastTexture, OldEnergyBlastX[2], EnergyBlastY[2], WHITE);
             DrawTexture(PlayerSprite, PlayerX, PlayerY, WHITE);
-            GrenadeX[0] = PlayerX + (GrenadeWidth + PlayerSpeed);
-            GrenadeX[1] = PlayerX + (GrenadeWidth + PlayerSpeed);
-            GrenadeX[2] = PlayerX + (GrenadeWidth + PlayerSpeed);
+            EnergyBlastX[0] = PlayerX + (EnergyBlastWidth + PlayerSpeed);
+            EnergyBlastX[1] = PlayerX + (EnergyBlastWidth + PlayerSpeed);
+            EnergyBlastX[2] = PlayerX + (EnergyBlastWidth + PlayerSpeed);
             if (DrawAsteroid == true)
             {
                 DrawTexture(AsteroidSprite, AsteroidX[0], AsteroidY[0], WHITE);
@@ -127,15 +129,19 @@ int main()
                 DrawTexture(AsteroidSprite, AsteroidX[3], AsteroidY[3], WHITE);
                 DrawTexture(AsteroidSprite, AsteroidX[4], AsteroidY[4], WHITE);
             }
-            if (WhenDrawHeart == Score) {
+            if (WhenDrawHeart == Score)
+            {
                 DrawHeart = true;
             }
-            if (DrawHeart == true) {
+            if (DrawHeart == true)
+            {
                 DrawTexture(HeartSprite, HeartX, HeartY, WHITE);
-                if (HeartY >= 0) {
+                if (HeartY >= 0)
+                {
                     HeartY += HeartSpeed;
                 }
-                if (HeartY >= GetScreenHeight()) {
+                if (HeartY >= GetScreenHeight())
+                {
                     DrawHeart = false;
                     HeartY = 0;
                     HeartX = GetRandomValue(0, GetScreenWidth() - HeartWidth);
@@ -156,119 +162,119 @@ int main()
             {
                 PlayerX = GetScreenWidth() - PlayerWidth;
             }
-            // This trigers the grenade
+            // This trigers the EnergyBlast
             if (IsKeyDown(KEY_SPACE))
             {
                 if (IsKeyPressed(KEY_SPACE))
                 {
-                    if (!GrenadeActive)
+                    if (!EnergyBlastActive)
                     {
-                        GrenadeActive = true;
+                        EnergyBlastActive = true;
                     }
-                    else if (!GrenadeActive1)
+                    else if (!EnergyBlastActive1)
                     {
-                        GrenadeActive1 = true;
+                        EnergyBlastActive1 = true;
                     }
-                    else if (!GrenadeActive2)
+                    else if (!EnergyBlastActive2)
                     {
-                        GrenadeActive2 = true;
+                        EnergyBlastActive2 = true;
                     }
                 }
-                PlaySound(GrenadeShooting);
+                PlaySound(EnergyBlastShooting);
             }
-            Collide_Grenade_Asteroid(AsteroidX[0], GrenadeX[0], AsteroidY[0], GrenadeY[0], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[0], GrenadeSpeed, GrenadeActive, ExplodeSound, Score);
-            Collide_Grenade_Asteroid(AsteroidX[1], GrenadeX[0], AsteroidY[1], GrenadeY[0], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[1], GrenadeSpeed, GrenadeActive, ExplodeSound, Score);
-            Collide_Grenade_Asteroid(AsteroidX[2], GrenadeX[0], AsteroidY[2], GrenadeY[0], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[2], GrenadeSpeed, GrenadeActive, ExplodeSound, Score);
-            Collide_Grenade_Asteroid(AsteroidX[3], GrenadeX[0], AsteroidY[3], GrenadeY[0], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[3], GrenadeSpeed, GrenadeActive, ExplodeSound, Score);
-            Collide_Grenade_Asteroid(AsteroidX[4], GrenadeX[0], AsteroidY[4], GrenadeY[0], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[4], GrenadeSpeed, GrenadeActive, ExplodeSound, Score);
-            Collide_Grenade_Asteroid(AsteroidX[0], GrenadeX[1], AsteroidY[0], GrenadeY[1], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[0], GrenadeSpeed, GrenadeActive1, ExplodeSound, Score);
-            Collide_Grenade_Asteroid(AsteroidX[1], GrenadeX[1], AsteroidY[1], GrenadeY[1], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[1], GrenadeSpeed, GrenadeActive1, ExplodeSound, Score);
-            Collide_Grenade_Asteroid(AsteroidX[2], GrenadeX[1], AsteroidY[2], GrenadeY[1], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[2], GrenadeSpeed, GrenadeActive1, ExplodeSound, Score);
-            Collide_Grenade_Asteroid(AsteroidX[3], GrenadeX[1], AsteroidY[3], GrenadeY[1], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[3], GrenadeSpeed, GrenadeActive1, ExplodeSound, Score);
-            Collide_Grenade_Asteroid(AsteroidX[4], GrenadeX[1], AsteroidY[4], GrenadeY[1], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[4], GrenadeSpeed, GrenadeActive1, ExplodeSound, Score);
-            Collide_Grenade_Asteroid(AsteroidX[0], GrenadeX[2], AsteroidY[0], GrenadeY[2], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[0], GrenadeSpeed, GrenadeActive2, ExplodeSound, Score);
-            Collide_Grenade_Asteroid(AsteroidX[1], GrenadeX[2], AsteroidY[1], GrenadeY[2], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[1], GrenadeSpeed, GrenadeActive2, ExplodeSound, Score);
-            Collide_Grenade_Asteroid(AsteroidX[2], GrenadeX[2], AsteroidY[2], GrenadeY[2], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[2], GrenadeSpeed, GrenadeActive2, ExplodeSound, Score);
-            Collide_Grenade_Asteroid(AsteroidX[3], GrenadeX[2], AsteroidY[3], GrenadeY[2], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[3], GrenadeSpeed, GrenadeActive2, ExplodeSound, Score);
-            Collide_Grenade_Asteroid(AsteroidX[4], GrenadeX[2], AsteroidY[4], GrenadeY[2], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[4], GrenadeSpeed, GrenadeActive2, ExplodeSound, Score);
+            Collide_EnergyBlast_Asteroid(AsteroidX[0], EnergyBlastX[0], AsteroidY[0], EnergyBlastY[0], AsteroidWidth, EnergyBlastWidth, AsteroidHeight, EnergyBlastHeight, AsteroidSpeed[0], EnergyBlastSpeed, EnergyBlastActive, ExplodeSound, Score);
+            Collide_EnergyBlast_Asteroid(AsteroidX[1], EnergyBlastX[0], AsteroidY[1], EnergyBlastY[0], AsteroidWidth, EnergyBlastWidth, AsteroidHeight, EnergyBlastHeight, AsteroidSpeed[1], EnergyBlastSpeed, EnergyBlastActive, ExplodeSound, Score);
+            Collide_EnergyBlast_Asteroid(AsteroidX[2], EnergyBlastX[0], AsteroidY[2], EnergyBlastY[0], AsteroidWidth, EnergyBlastWidth, AsteroidHeight, EnergyBlastHeight, AsteroidSpeed[2], EnergyBlastSpeed, EnergyBlastActive, ExplodeSound, Score);
+            Collide_EnergyBlast_Asteroid(AsteroidX[3], EnergyBlastX[0], AsteroidY[3], EnergyBlastY[0], AsteroidWidth, EnergyBlastWidth, AsteroidHeight, EnergyBlastHeight, AsteroidSpeed[3], EnergyBlastSpeed, EnergyBlastActive, ExplodeSound, Score);
+            Collide_EnergyBlast_Asteroid(AsteroidX[4], EnergyBlastX[0], AsteroidY[4], EnergyBlastY[0], AsteroidWidth, EnergyBlastWidth, AsteroidHeight, EnergyBlastHeight, AsteroidSpeed[4], EnergyBlastSpeed, EnergyBlastActive, ExplodeSound, Score);
+            Collide_EnergyBlast_Asteroid(AsteroidX[0], EnergyBlastX[1], AsteroidY[0], EnergyBlastY[1], AsteroidWidth, EnergyBlastWidth, AsteroidHeight, EnergyBlastHeight, AsteroidSpeed[0], EnergyBlastSpeed, EnergyBlastActive1, ExplodeSound, Score);
+            Collide_EnergyBlast_Asteroid(AsteroidX[1], EnergyBlastX[1], AsteroidY[1], EnergyBlastY[1], AsteroidWidth, EnergyBlastWidth, AsteroidHeight, EnergyBlastHeight, AsteroidSpeed[1], EnergyBlastSpeed, EnergyBlastActive1, ExplodeSound, Score);
+            Collide_EnergyBlast_Asteroid(AsteroidX[2], EnergyBlastX[1], AsteroidY[2], EnergyBlastY[1], AsteroidWidth, EnergyBlastWidth, AsteroidHeight, EnergyBlastHeight, AsteroidSpeed[2], EnergyBlastSpeed, EnergyBlastActive1, ExplodeSound, Score);
+            Collide_EnergyBlast_Asteroid(AsteroidX[3], EnergyBlastX[1], AsteroidY[3], EnergyBlastY[1], AsteroidWidth, EnergyBlastWidth, AsteroidHeight, EnergyBlastHeight, AsteroidSpeed[3], EnergyBlastSpeed, EnergyBlastActive1, ExplodeSound, Score);
+            Collide_EnergyBlast_Asteroid(AsteroidX[4], EnergyBlastX[1], AsteroidY[4], EnergyBlastY[1], AsteroidWidth, EnergyBlastWidth, AsteroidHeight, EnergyBlastHeight, AsteroidSpeed[4], EnergyBlastSpeed, EnergyBlastActive1, ExplodeSound, Score);
+            Collide_EnergyBlast_Asteroid(AsteroidX[0], EnergyBlastX[2], AsteroidY[0], EnergyBlastY[2], AsteroidWidth, EnergyBlastWidth, AsteroidHeight, EnergyBlastHeight, AsteroidSpeed[0], EnergyBlastSpeed, EnergyBlastActive2, ExplodeSound, Score);
+            Collide_EnergyBlast_Asteroid(AsteroidX[1], EnergyBlastX[2], AsteroidY[1], EnergyBlastY[2], AsteroidWidth, EnergyBlastWidth, AsteroidHeight, EnergyBlastHeight, AsteroidSpeed[1], EnergyBlastSpeed, EnergyBlastActive2, ExplodeSound, Score);
+            Collide_EnergyBlast_Asteroid(AsteroidX[2], EnergyBlastX[2], AsteroidY[2], EnergyBlastY[2], AsteroidWidth, EnergyBlastWidth, AsteroidHeight, EnergyBlastHeight, AsteroidSpeed[2], EnergyBlastSpeed, EnergyBlastActive2, ExplodeSound, Score);
+            Collide_EnergyBlast_Asteroid(AsteroidX[3], EnergyBlastX[2], AsteroidY[3], EnergyBlastY[2], AsteroidWidth, EnergyBlastWidth, AsteroidHeight, EnergyBlastHeight, AsteroidSpeed[3], EnergyBlastSpeed, EnergyBlastActive2, ExplodeSound, Score);
+            Collide_EnergyBlast_Asteroid(AsteroidX[4], EnergyBlastX[2], AsteroidY[4], EnergyBlastY[2], AsteroidWidth, EnergyBlastWidth, AsteroidHeight, EnergyBlastHeight, AsteroidSpeed[4], EnergyBlastSpeed, EnergyBlastActive2, ExplodeSound, Score);
             Heart_Hit_Player(HeartX, PlayerX, HeartY, PlayerY, HeartWidth, PlayerWidth, HeartHeight, PlayerHeight, HeartSpeed, DrawHeart, WhenDrawHeart, Lives, Score);
-            // Grenade Movement
-            if (GrenadeActive)
+            // EnergyBlast Movement
+            if (EnergyBlastActive)
             {
-                if (GrenadeY[0] > 0)
+                if (EnergyBlastY[0] > 0)
                 {
-                    GrenadeY[0] -= GrenadeSpeed;
+                    EnergyBlastY[0] -= EnergyBlastSpeed;
                     MeasuringOldX = false;
                 }
                 else
                 {
-                    GrenadeActive = false;
+                    EnergyBlastActive = false;
                 }
             }
             if (MeasuringOldX)
             {
-                OldGrenadeX[0] = GrenadeX[0];
+                OldEnergyBlastX[0] = EnergyBlastX[0];
             }
-            if (!GrenadeActive)
+            if (!EnergyBlastActive)
             {
-                GrenadeY[0] = PlayerY + (PlayerHeight / 2);
+                EnergyBlastY[0] = PlayerY + (PlayerHeight / 2);
                 MeasuringOldX = true;
             }
             if (MeasuringOldX)
             {
-                OldGrenadeX[0] = GrenadeX[0];
+                OldEnergyBlastX[0] = EnergyBlastX[0];
             }
-            //############################################################
-            if (GrenadeActive1)
+            // ############################################################
+            if (EnergyBlastActive1)
             {
-                if (GrenadeY[1] > 0)
+                if (EnergyBlastY[1] > 0)
                 {
-                    GrenadeY[1] -= GrenadeSpeed;
+                    EnergyBlastY[1] -= EnergyBlastSpeed;
                     MeasuringOldX1 = false;
                 }
                 else
                 {
-                    GrenadeActive1 = false;
+                    EnergyBlastActive1 = false;
                 }
             }
             if (MeasuringOldX1)
             {
-                OldGrenadeX[1] = GrenadeX[1];
+                OldEnergyBlastX[1] = EnergyBlastX[1];
             }
-            if (!GrenadeActive1)
+            if (!EnergyBlastActive1)
             {
-                GrenadeY[1] = PlayerY + (PlayerHeight / 2);
+                EnergyBlastY[1] = PlayerY + (PlayerHeight / 2);
                 MeasuringOldX1 = true;
             }
             if (MeasuringOldX1)
             {
-                OldGrenadeX[1] = GrenadeX[1];
+                OldEnergyBlastX[1] = EnergyBlastX[1];
             }
-            //#################################################
-            if (GrenadeActive2)
+            // #################################################
+            if (EnergyBlastActive2)
             {
-                if (GrenadeY[2] > 0)
+                if (EnergyBlastY[2] > 0)
                 {
-                    GrenadeY[2] -= GrenadeSpeed;
+                    EnergyBlastY[2] -= EnergyBlastSpeed;
                     MeasuringOldX2 = false;
                 }
                 else
                 {
-                    GrenadeActive2 = false;
+                    EnergyBlastActive2 = false;
                 }
             }
             if (MeasuringOldX2)
             {
-                OldGrenadeX[2] = GrenadeX[2];
+                OldEnergyBlastX[2] = EnergyBlastX[2];
             }
-            if (!GrenadeActive2)
+            if (!EnergyBlastActive2)
             {
-                GrenadeY[2] = PlayerY + (PlayerHeight / 2);
+                EnergyBlastY[2] = PlayerY + (PlayerHeight / 2);
                 MeasuringOldX2 = true;
             }
             if (MeasuringOldX2)
             {
-                OldGrenadeX[2] = GrenadeX[2];
+                OldEnergyBlastX[2] = EnergyBlastX[2];
             }
             // This is where the asteroids get reset
             if (AsteroidY[0] + AsteroidHeight >= GetScreenHeight())
@@ -348,11 +354,11 @@ int main()
     }
     // Every texture and sound gets unloaded here
     UnloadTexture(PlayerSprite);
-    UnloadTexture(GrenadeTexture);
+    UnloadTexture(EnergyBlastTexture);
     UnloadTexture(AsteroidSprite);
     UnloadTexture(Background);
     UnloadSound(ExplodeSound);
-    UnloadSound(GrenadeShooting);
+    UnloadSound(EnergyBlastShooting);
     CloseAudioDevice();
     CloseWindow();
     // This returns 0 meaning the script was a success
