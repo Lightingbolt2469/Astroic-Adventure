@@ -25,13 +25,13 @@ void Player_Hit_Asteroid(int &a_x, int &b_x, int &a_y, int &b_y, int a_width, in
     }
 }
 
-void Heart_Hit_Player(int &a_x, int &b_x, int &a_y, int &b_y, int a_width, int b_width, int a_height, int b_height,int &a_speed, bool &a_active, int &a_wd, int &Lives) {
+void Heart_Hit_Player(int &a_x, int &b_x, int &a_y, int &b_y, int a_width, int b_width, int a_height, int b_height,int &a_speed, bool &a_active, int &a_wd, int &Lives, int &Score) {
     if (a_x < b_x + b_width && b_x < a_x + a_width && a_y < b_y + b_height && b_y < a_y + a_height) {
         Lives += 1;
         a_y = 0;
         a_x = GetRandomValue(0, GetScreenWidth() - a_width);
         a_speed = GetRandomValue(2, 4);
-        a_wd = GetRandomValue(2, 96);
+        a_wd = Score + GetRandomValue(2, 96);
         a_active = false;
     }
 }
@@ -191,7 +191,7 @@ int main()
             Collide_Grenade_Asteroid(AsteroidX[2], GrenadeX[2], AsteroidY[2], GrenadeY[2], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[2], GrenadeSpeed, GrenadeActive2, ExplodeSound, Score);
             Collide_Grenade_Asteroid(AsteroidX[3], GrenadeX[2], AsteroidY[3], GrenadeY[2], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[3], GrenadeSpeed, GrenadeActive2, ExplodeSound, Score);
             Collide_Grenade_Asteroid(AsteroidX[4], GrenadeX[2], AsteroidY[4], GrenadeY[2], AsteroidWidth, GrenadeWidth, AsteroidHeight, GrenadeHeight, AsteroidSpeed[4], GrenadeSpeed, GrenadeActive2, ExplodeSound, Score);
-            Heart_Hit_Player(HeartX, PlayerX, HeartY, PlayerY, HeartWidth, PlayerWidth, HeartHeight, PlayerHeight, HeartSpeed, DrawHeart, WhenDrawHeart, Lives);
+            Heart_Hit_Player(HeartX, PlayerX, HeartY, PlayerY, HeartWidth, PlayerWidth, HeartHeight, PlayerHeight, HeartSpeed, DrawHeart, WhenDrawHeart, Lives, Score);
             // Grenade Movement
             if (GrenadeActive)
             {
