@@ -135,7 +135,7 @@ int main()
                 if (HeartY >= 0) {
                     HeartY += HeartSpeed;
                 }
-                if (HeartY == GetScreenHeight()) {
+                if (HeartY >= GetScreenHeight()) {
                     DrawHeart = false;
                     HeartY = 0;
                     HeartX = GetRandomValue(0, GetScreenWidth() - HeartWidth);
