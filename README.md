@@ -6,4 +6,4 @@ A game made in C++ Raylib. You are a alien which wants to go to his planet and d
 
 First, Download the file called Astroic.Adventure.v1.0.Windows.11.x86-64.zip, And right click on the downloaded folder (usually in your Downloads folder) and right click on it. There should be an option called "Extract All" and click that, and extract the zip wherever you want. Find main.exe and double click on it to play the game.
 
-NOTE : If you want you can right click on it and click "Show More Options" to create a shortcut and put it in your desktop to play the game by double clicking on the shortcut icon.
+NOTE : If you want you can right click on it and click "Show More Options" and click "Create Shortcut" to create a shortcut icon and drag it in your desktop to play the game by double clicking on the shortcut icon if you want.
