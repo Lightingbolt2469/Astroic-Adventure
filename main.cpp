@@ -41,7 +41,7 @@ void Heart_Hit_Player(int &a_x, int &b_x, int &a_y, int &b_y, int a_width, int b
 int main()
 {
     // Starts the game window and sets the fps of the game
-    InitWindow(1200, 800, "Space Shooters");
+    InitWindow(1200, 800, "Astroic Adventure");
     InitAudioDevice();
     SetTargetFPS(60);
     // These are all the game variables required to run the game
