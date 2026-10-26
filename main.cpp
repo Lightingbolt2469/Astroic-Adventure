@@ -165,6 +165,7 @@ int main()
             // This trigers the EnergyBlast
             if (IsKeyDown(KEY_SPACE))
             {
+                PlaySound(EnergyBlastShooting);
                 if (IsKeyPressed(KEY_SPACE))
                 {
                     if (!EnergyBlastActive)
