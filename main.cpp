@@ -1,5 +1,4 @@
 #include "raylib.h"
-#include <iostream>
 
 // Checks if the Asteroid touches the EnergyBlast
 void Collide_EnergyBlast_Asteroid(int &a_x, int &b_x, int &a_y, int &b_y, int a_width, int b_width, int a_height, int b_height, int &a_speed, int &b_speed, bool &b_active, Sound ExplodeSound, int &Score)
