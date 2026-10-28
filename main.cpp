@@ -1,4 +1,4 @@
-# Made by Lightingbolt2469
+// Made by Lightingbolt2469
 
 #include "raylib.h"
 
