@@ -1,3 +1,5 @@
+# Made by Lightingbolt2469
+
 #include "raylib.h"
 
 // Checks if the Asteroid touches the EnergyBlast
